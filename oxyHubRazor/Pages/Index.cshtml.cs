@@ -12,5 +12,10 @@ namespace oxyHubRazor.Pages.Home
         public void OnGet()
         {
         }
+
+        public void btn_btn_rstHostap_Click()
+        {
+
+        }
     }
 }

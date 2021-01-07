@@ -1,0 +1,78 @@
+﻿@page
+@model oxyHubRazor.Pages.Data.IndexModel
+
+@{
+    ViewData["Title"] = "Data Manipulation";
+}
+
+<h1>Data Manipulation</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].feuchtigkeit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].temperatur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].tvoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].eco2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].airQuality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].airQualityPrecision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].rawh2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mqttData[0].rawEthanol)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.mqttData) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.feuchtigkeit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.temperatur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tvoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.eco2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.airQuality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.airQualityPrecision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rawh2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rawEthanol)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
