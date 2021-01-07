@@ -1,0 +1,81 @@
+﻿@page
+@model oxyHubRazor.Pages.Home.IndexModel
+@{
+    Layout = null;
+}
+
+<html lang="de-at">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="~/css/Home.css" rel="stylesheet" />
+    <title>oxyGenise Controller Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p class="centered">
+                    Status<br />
+                    MQTT: <br />
+                    Hostapd: <br />
+                    Sensor 1:<br />
+                    Sensor 2:<br />
+                    Sensor 3:<br />
+                    Sensor 4:<br />
+                </p>
+            </div>
+            <div class="col-sm-8">
+                <h1 class="centered vertical-center">oxyGenise Controller Dashboard</h1>
+            </div>
+            <div class="col-sm-2">
+                <Button class="vertical-center" runat="server" id="restartHostapd" OnClick="btn_rstHostap_Click">Restart Hostapd</Button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                Feuchtigkeit: <br />
+                Temperatur:
+            </div>
+            <div class="col-sm-4">
+                Volatile Masse: [Value] ppb<br />
+            </div>
+            <div class="col-sm-4">
+                CO² Anteil: [Value] ppm<br />
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                Luftqualität: [Value] %<br />
+                Genauigkeit: [Value] %<br />
+            </div>
+            <div class="col-sm-4">
+                Roher Wasserstoff Anteil: [Value]<br />
+            </div>
+            <div class="col-sm-4">
+                Roher Ethanol Anteil: [Value]<br />
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.0/umd/react.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="@Url.Content("~/js/oxySensorData.jsx")"></script>
+</body>
+</html>
+
+
+
+
