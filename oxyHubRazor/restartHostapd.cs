@@ -3,19 +3,19 @@ using System.Diagnostics;
 
 namespace shellCommands
 {
-    public class hostapd
+    public class controller
     {
-        void RunCommand()
+        public void restartHostapd()
         {
             var process = new Process()
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "systemctl",
-                    Arguments = "restart hostapd",
+                    FileName = "/bin/bash",
+                    Arguments = "systemctl restart hostapd",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    UseShellExecute = true,
+                    UseShellExecute = false,
                     CreateNoWindow = true,
                 }
             };
@@ -23,6 +23,7 @@ namespace shellCommands
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
             process.WaitForExit();
+            
         }
     }
 

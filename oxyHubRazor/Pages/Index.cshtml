@@ -2,6 +2,12 @@
 @model oxyHubRazor.Pages.Home.IndexModel
 @{
     ViewData["Title"] = "oxyGenis Controller Dashboard";
+    var mqtt = Model.SystemState.MqttdRunning ? "online" : "offline";
+    var hostapd = Model.SystemState.HostapdRunning ? "online" : "offline";
+    var sensor1 = Model.SystemState.Sensor1Online ? "online" : "offline";
+    var sensor2 = Model.SystemState.Sensor2Online ? "online" : "offline";
+    var sensor3 = Model.SystemState.Sensor3Online ? "online" : "offline";
+    var sensor4 = Model.SystemState.Sensor4Online ? "online" : "offline";
 }
 
 <html lang="de-at">
@@ -9,7 +15,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="~/css/Home.css" rel="stylesheet" />
@@ -21,19 +30,19 @@
             <div class="col-sm-2">
                 <p class="centered">
                     Status<br />
-                    MQTT: <br />
-                    Hostapd: <br />
-                    Sensor 1:<br />
-                    Sensor 2:<br />
-                    Sensor 3:<br />
-                    Sensor 4:<br />
+                    MQTT: @mqtt<br />
+                    Hostapd: @hostapd<br />
+                    Sensor 1: @sensor1<br />
+                    Sensor 2: @sensor2<br />
+                    Sensor 3: @sensor3<br />
+                    Sensor 4: @sensor4<br />
                 </p>
             </div>
             <div class="col-sm-8">
                 <h1 class="centered vertical-center">oxyGenise Controller Dashboard</h1>
             </div>
             <div class="col-sm-2">
-                <Button class="vertical-center" runat="server" id="restartHostapd" OnClick="btn_rstHostap_Click">Restart Hostapd</Button>
+                <form method="post"  asp-page-handler="RestartHostapd"><button class="btn btn-default">Restart Hostapd</button></form>
             </div>
         </div>
     </div>
@@ -41,28 +50,28 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                Feuchtigkeit: <br />
-                Temperatur:
+                Feuchtigkeit: @Html.DisplayFor(model => model.mqttData[0].feuchtigkeit) <br />
+                Temperatur: @Html.DisplayFor(model => model.mqttData[0].temperatur)
             </div>
             <div class="col-sm-4">
-                Volatile Masse: [Value] ppb<br />
+                Volatile Masse: @Html.DisplayFor(model => model.mqttData[0].tvoc) ppb<br />
             </div>
             <div class="col-sm-4">
-                CO² Anteil: [Value] ppm<br />
+                CO² Anteil: @Html.DisplayFor(model => model.mqttData[0].eco2) ppm<br />
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                Luftqualität: [Value] %<br />
-                Genauigkeit: [Value] %<br />
+                Luftqualität: @Html.DisplayFor(model => model.mqttData[0].airQuality) %<br />
+                Genauigkeit: @Html.DisplayFor(model => model.mqttData[0].airQualityPrecision) %<br />
             </div>
             <div class="col-sm-4">
-                Roher Wasserstoff Anteil: [Value]<br />
+                Roher Wasserstoff Anteil: @Html.DisplayFor(model => model.mqttData[0].rawh2)<br />
             </div>
             <div class="col-sm-4">
-                Roher Ethanol Anteil: [Value]<br />
+                Roher Ethanol Anteil: @Html.DisplayFor(model => model.mqttData[0].rawEthanol)<br />
             </div>
         </div>
     </div>
