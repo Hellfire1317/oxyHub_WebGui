@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using oxyHubRazor.Data;
 using oxyHubRazor.Models;
 using shellCommands;
+using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace oxyHubRazor.Pages.Home
 {
@@ -20,26 +17,26 @@ namespace oxyHubRazor.Pages.Home
             _context = context;
         }
 
+        controller oxyHub = new controller();
+
         public StatusModel SystemState { get; set; }
         public IList<mqttData> mqttData { get; set; }
 
         public async Task OnGetAsync()
         {
+            SystemState = new StatusModel();
             mqttData = await _context.mqttData.ToListAsync();
-            SystemState = new StatusModel()
-            {
-                HostapdRunning = false,
-                MqttdRunning = false,
-                Sensor1Online = false,
-                Sensor2Online = true,
-                Sensor3Online = true,
-                Sensor4Online = false,
-            }; 
+            SystemState.Sensor1Online = oxyHub.PingSensor(IPAddress.Parse("10.10.10.10"));
+            SystemState.Sensor2Online = oxyHub.PingSensor(IPAddress.Parse("10.10.10.11"));
+            SystemState.Sensor3Online = oxyHub.PingSensor(IPAddress.Parse("10.10.10.12"));
+            SystemState.Sensor4Online = oxyHub.PingSensor(IPAddress.Parse("10.10.10.13"));
+            //SystemState.HostapdRunning = oxyHub.CheckService("hostapd");
+            //SystemState.MqttdRunning = oxyHub.CheckService("mqtt");
         }
 
         public void OnPostRestartHostapd()
         {
-            controller oxyHub = new controller();
+           
             oxyHub.restartHostapd();
         }
 
